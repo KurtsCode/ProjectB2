@@ -12,6 +12,9 @@ public class NewPlayer : PhysicsObject
     [SerializeField] private int subtractRage = 5;
     [SerializeField] private bool boolRage;
 
+    [SerializeField] AudioClip _sfxSource;
+    [SerializeField] private float _sfxVolume = 1.0f;
+
     private PlayerAnimation _anim;
     private SpriteRenderer _spriteR;
     private CanvasManager _canvas;
@@ -37,6 +40,11 @@ public class NewPlayer : PhysicsObject
         if (Input.GetButtonDown("Fire1"))
         {
             _anim.Attack();
+
+            if (_sfxSource != null)
+            {
+                AudioManager.Instance.PlayEffect(_sfxSource, _sfxVolume);
+            }
         }
         targetVelocity = new Vector2(Input.GetAxis("Horizontal") * maxSpeed, 0);
         _anim.Move(Mathf.Abs(Input.GetAxis("Horizontal")));
